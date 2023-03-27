@@ -2,7 +2,7 @@
 
 import sys
 
-def oddNumberGenerator(n):
+def oddNumbersGenerator(n):
     try:
         oddNumList = [counter for counter in range(1, n+1, 2)]
         sys.stdout.write(oddNumList)
@@ -10,4 +10,4 @@ def oddNumberGenerator(n):
         sys.stdout.write("The argument must be a whole and positive integer")
 
 if __name__ == "__main__":
-    oddNumberGenerator(sys.argv[1])
+    oddNumbersGenerator(sys.argv[1])
