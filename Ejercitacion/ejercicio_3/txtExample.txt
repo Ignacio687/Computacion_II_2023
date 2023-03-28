@@ -1,0 +1,26 @@
+Cluster -44 -58 +36  :
+248 voxels (69%) covering 5% of atlas.sLOC l (Lateral Occipital Cortex, superior division Left)
+51 voxels (14%) covering 5% of atlas.AG l (Angular Gyrus Left)
+62 voxels (17%) covering 0% of atlas.not-labeled
+
+Cluster -38 -84 +18  :
+163 voxels (47%) covering 3% of atlas.sLOC l (Lateral Occipital Cortex, superior division Left)
+107 voxels (31%) covering 5% of atlas.iLOC l (Lateral Occipital Cortex, inferior division Left)
+25 voxels (7%) covering 1% of atlas.OP l (Occipital Pole Left)
+49 voxels (14%) covering 0% of atlas.not-labeled
+
+Cluster -42 -6 +30  :
+89 voxels (34%) covering 2% of atlas.PreCG l (Precentral Gyrus Left)
+1 voxels (0%) covering 0% of atlas.IFG oper l (Inferior Frontal Gyrus, pars opercularis Left)
+169 voxels (65%) covering 0% of atlas.not-labeled
+
+All clusters combined :
+411 voxels (43%) covering 8% of atlas.sLOC l (Lateral Occipital Cortex, superior division Left)
+107 voxels (11%) covering 5% of atlas.iLOC l (Lateral Occipital Cortex, inferior division Left)
+89 voxels (9%) covering 2% of atlas.PreCG l (Precentral Gyrus Left)
+51 voxels (5%) covering 5% of atlas.AG l (Angular Gyrus Left)
+25 voxels (3%) covering 1% of atlas.OP l (Occipital Pole Left)
+1 voxels (0%) covering 0% of atlas.IFG oper l (Inferior Frontal Gyrus, pars opercularis Left)
+280 voxels (29%) covering 0% of atlas.not-labeled
+
+Con el traductor gratuito online de EL MUNDO puedes traducir al instante palabras y frases de inglés, francés, italiano, alemán y portugués. Además de la traducción, con cada consulta el traductor de EL MUNDO te ofrece definiciones ampliadas de las palabras y expresiones introducidas, así como ejemplos de uso y frases hechas.
