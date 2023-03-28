@@ -2,7 +2,7 @@
 
 import sys
 
-def oddNumbersGenerator():
+def inputMultiplier():
     try:
         n = int(sys.argv[2])
         strArg = sys.argv[1]
@@ -11,7 +11,7 @@ def oddNumbersGenerator():
         sys.stdout.write("This method requires two arguments, the first one can be any string and the second one an integer, which must be positive")
 
 if __name__ == "__main__":
-    oddNumbersGenerator()
+    inputMultiplier()
 
 
 #implementar libreria argparce y getopt
