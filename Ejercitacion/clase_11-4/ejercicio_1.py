@@ -20,12 +20,11 @@ class MultiProcessMatrixCalculator():
             os.rename(tempfilename, 'fifo')
             #os.mkfifo('fifo')
             while True:
-                time.sleep(2)
+                time.sleep(1)
                 with open('fifo', 'r') as fifo:
-                    results = fifo.readlines()
-                print(results)    
-                if len(results) == 3:
-                    sys.stdout.write('/n'.join(results))
+                    results = fifo.readlines()   
+                if len(results) > 3:
+                    sys.stdout.write(''.join(results))
                     os.remove('fifo')
                     break
         else:
@@ -35,13 +34,11 @@ class MultiProcessMatrixCalculator():
                 result = (matrix1[1][0]*matrix2[0][child-2])+(matrix1[1][1]*matrix2[1][child-2])
             while True:
                 if os.path.isfile('fifo'):
-                    with open('fifo', 'w') as fifo:    #probar con modo en x para evitar el if y while
+                    with open('fifo', 'a') as fifo:
                         if child < 2:
-                            print(f'0{child}:{result}')
-                            #fifo.write(f'0{child}:{result}')
+                            fifo.write(f'0{child}:{result}\n')
                         else:
-                            print(f'1{child-2}:{result}')
-                            #fifo.write(f'1{child-2}:{result}')
+                            fifo.write(f'1{child-2}:{result}\n')
                     break
 
 if __name__=='__main__':
@@ -54,7 +51,5 @@ if __name__=='__main__':
         [6, 4]
         ]
     ]
-    print(matrixList[0])
-    print(matrixList[1])
     calculator = MultiProcessMatrixCalculator()
     calculator.calculate(matrixList[0], matrixList[1])
