@@ -9,13 +9,12 @@ from noblock import NoBlock
 
 
 class HashParser():
-    def __init__(self, fifoPath: str = "/", fifoName: str = "fifo",) -> None:
+    def __init__(self, fifoPath: str = "/", fifoName: str = "fifo") -> None:
         self.fifopath = (fifoPath + fifoName)
-        print(self.fifopath)
         os.mkfifo(self.fifopath)
-        self.result = ''
 
     def run(self, seed: str, nonce: int = 0, difficulty: int = 1, childsAmount: int = 2):
+        signal.signal(signal.SIGINT, self.readFifo)
         if self.mksubp(childsAmount):
             block = NoBlock(seed, nonce, difficulty)
             hash, nonce = block.proof_of_work()
@@ -24,18 +23,17 @@ class HashParser():
             with open(self.fifopath, "a") as fifo:
                 fifo.write(f'{nonce}\n{hash}')
         else:
-            signal.signal(signal.SIGINT, self.readFifo)
-            os.wait()
-            return self.result
+            signal.pause()
 
     def readFifo(self, uno, dos):
+        signal.signal(signal.SIGINT, signal.SIG_IGN)
         with open(self.fifopath, "r") as fifo:
             result = fifo.readlines()
-        os.unlink(self.fifopath)
         parent = psutil.Process(os.getpid())
         for child in parent.children(recursive=True):
             child.kill()
-        self.result = f'nonce: {result[0]}\nhash: {result[1]}'
+        os.unlink(self.fifopath)
+        print(f'nonce: {result[0]}hash: {result[1]}')
 
     def mksubp(self, childs):
         for child in range(0, childs):
@@ -48,4 +46,4 @@ if __name__ == "__main__":
     app = HashParser(
         '/home/ignaciochaves/code/python/Computacion_II_2023/ejercitacion/clase_18-4/', 
         'fifo1')
-    print(app.run(0, 5, 2))
+    app.run("hash test1 *172sppo4er", 0, 6, 100)

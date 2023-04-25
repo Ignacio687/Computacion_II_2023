@@ -4,7 +4,7 @@ https://github.com/satwikkansal/python_blockchain_app
 """
 
 from hashlib import sha256
-import json
+import json, random
 
 class NoBlock:
     def __init__(self, seed: str, nonce: int = 0, difficulty: int = 1):
@@ -27,7 +27,7 @@ class NoBlock:
 
         computed_hash = block.compute_hash()
         while not computed_hash.startswith('0' * block.difficulty):
-            block.nonce += 1
+            block.nonce += random.randint(1, 9)*random.randint(1, 9)
             computed_hash = block.compute_hash()
         return computed_hash, block.nonce
     
