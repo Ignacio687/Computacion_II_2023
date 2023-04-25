@@ -7,9 +7,10 @@ from hashlib import sha256
 import json
 
 class NoBlock:
-    def __init__(self, seed, nonce=0):
+    def __init__(self, seed: str, nonce: int = 0, difficulty: int = 1):
         self.seed = seed
         self.nonce = nonce
+        self.difficulty = difficulty
 
     def compute_hash(self):
         """
@@ -18,24 +19,22 @@ class NoBlock:
         block_string = json.dumps(self.__dict__, sort_keys=True)
         return sha256(block_string.encode()).hexdigest() #Devuelve el hash del bloque
 
-def proof_of_work(block):
-    """
-    Function that tries different values of nonce to get a hash
-    that satisfies our difficulty criteria.
-    """
-    difficulty = 2
+    def proof_of_work(block):
+        """
+        Function that tries different values of nonce to get a hash
+        that satisfies our difficulty criteria.
+        """
 
-    computed_hash = block.compute_hash()
-    while not computed_hash.startswith('0' * difficulty):
-        block.nonce += 1
         computed_hash = block.compute_hash()
-
-    return computed_hash
+        while not computed_hash.startswith('0' * block.difficulty):
+            block.nonce += 1
+            computed_hash = block.compute_hash()
+        return computed_hash, block.nonce
     
-b = NoBlock(seed='La semilla que quiera', nonce=0)
-h = b.compute_hash()
-new_hash = proof_of_work(b)
-print(new_hash)
+# b = NoBlock(seed='La semilla que quiera', nonce=0)
+# h = b.compute_hash()
+# new_hash = proof_of_work(b)
+# print(new_hash)
 
 """
 os.ppid() # obtiene el pid del padre
