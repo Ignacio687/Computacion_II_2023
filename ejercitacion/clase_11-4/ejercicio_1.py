@@ -4,7 +4,7 @@
 Cada elemento deberá calcularse en un proceso distinto devolviendo el resultado 
 en una fifo indicando el indice del elemento. El padre deberá leer en la fifo y mostrar el resultado final.'''
 
-import os, sys
+import os, sys, time
 
 class MultiProcessMatrixCalculator():
     def run(self, matrix1, matrix2):
@@ -34,8 +34,6 @@ class MultiProcessMatrixCalculator():
                 os.unlink('fifo')
                 sys.stdout.write(''.join(results))
                 break
-                
-
 
 
 if __name__=='__main__':
@@ -49,4 +47,7 @@ if __name__=='__main__':
         ]
     ]    
     app = MultiProcessMatrixCalculator()
+    timer = time.perf_counter()
     stringTest = app.run(matrixList[0], matrixList[1])
+    timer = time.perf_counter() - timer
+    print(timer)
