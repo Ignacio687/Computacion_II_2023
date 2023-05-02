@@ -21,22 +21,27 @@ class TextInverter():
             sys.exit()
         pipes = {}
         for child in range(0, len(lines)):
-            if lines[child] != "":
                 pipes[child] = os.pipe()
-                os.write(pipes[child][1], lines[child].encode())
+                line = lines[child]
+                if line == "":
+                    line = "\n"
+                os.write(pipes[child][1], line.encode())
                 pid = os.fork()
                 if pid == 0:
                     line = os.read(pipes[child][0], 2048).decode()
                     os.close(pipes[child][0])
                     line = line[::-1]
                     os.write(pipes[child][1], line.encode())
-                    sys.exit()
+                    sys.exit()     
         try:        
             while True:
                 os.wait()
         except ChildProcessError:
             for pipe in pipes.values():
-                sys.stdout.write(os.read(pipe[0], 2048).decode()+"\n")
+                line = os.read(pipe[0], 2048).decode()
+                if line == "\n":
+                    line = ""
+                sys.stdout.write(line+"\n")
 
 
 if __name__ == "__main__":
