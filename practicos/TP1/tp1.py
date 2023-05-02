@@ -12,7 +12,11 @@ class TextInverter():
     def run(self):
         try:
             file = os.open(self.args.file, os.O_RDONLY)
-            lines = os.read(file, 2048).decode().split("\n")
+            lines = os.read(file, 2048).decode().splitlines(keepends = True)
+            blankEndLineFlag = False
+            if lines[len(lines)-1].endswith("\n"):
+                lines.append("\n")
+                blankEndLineFlag = True
         except FileNotFoundError:
             sys.stdout.write("The file doesn't exist\n")
             sys.exit()
@@ -22,26 +26,24 @@ class TextInverter():
         pipes = {}
         for child in range(0, len(lines)):
                 pipes[child] = os.pipe()
-                line = lines[child]
-                if line == "":
-                    line = "\n"
-                os.write(pipes[child][1], line.encode())
+                os.write(pipes[child][1], lines[child].encode())
                 pid = os.fork()
                 if pid == 0:
                     line = os.read(pipes[child][0], 2048).decode()
                     os.close(pipes[child][0])
-                    line = line[::-1]
-                    os.write(pipes[child][1], line.encode())
-                    sys.exit()     
+                    os.write(pipes[child][1], line[::-1].encode())
+                    sys.exit()
+                else: os.close(pipes[child][1])
+                os.system('pstree')
         try:        
             while True:
                 os.wait()
         except ChildProcessError:
             for pipe in pipes.values():
-                line = os.read(pipe[0], 2048).decode()
-                if line == "\n":
-                    line = ""
-                sys.stdout.write(line+"\n")
+                line = os.read(pipe[0], 2048).decode().replace("\n", "")
+                if blankEndLineFlag and pipe == pipes[child]:
+                    sys.stdout.write(line)
+                else: sys.stdout.write(line+"\n")
 
 
 if __name__ == "__main__":

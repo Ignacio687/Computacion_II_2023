@@ -1,3 +1,4 @@
+
 Escriba un programa que abra un archvo de texto pasado por argumento utilizando el modificador -f.
 * El programa deberá generar tantos procesos hijos como líneas tenga el archivo de texto.
 * El programa deberá enviarle, vía pipes (os.pipe()), cada línea del archivo a un hijo.
@@ -6,3 +7,4 @@ Escriba un programa que abra un archvo de texto pasado por argumento utilizando 
 
 * El proceso padre deberá esperar a que terminen todos los hijos, y mostrará por pantalla las líneas invertidas que recibió por pipe.
 * Debe manejar los errores.
+
