@@ -34,7 +34,6 @@ class TextInverter():
                     os.write(pipes[child][1], line[::-1].encode())
                     sys.exit()
                 else: os.close(pipes[child][1])
-                os.system('pstree')
         try:        
             while True:
                 os.wait()
